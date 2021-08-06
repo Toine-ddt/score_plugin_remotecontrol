@@ -44,7 +44,7 @@ class Http_server
 {
 public:
     std::thread th;
-    net::io_context ioc;
+    //net::io_context ioc;
 
     // std::thread th1;
 

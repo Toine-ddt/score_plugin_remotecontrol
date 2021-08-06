@@ -29,7 +29,7 @@ Http_server::Http_server()
     //Http_server::open_server()
       //  :ioc{1};
 
-    auto th = [this] { this->ioc.run(); };
+    //auto th = [this] { this->ioc.run(); };
 
 }
 
@@ -299,7 +299,7 @@ Http_server::open_server()
         auto const doc_root = std::make_shared<std::string>("./build-wasm/");
 
         // The io_context is required for all I/O
-        ioc{1};
+        net::io_context ioc{1};
 
         // The acceptor receives incoming connections
         tcp::acceptor acceptor{ioc, {address, port}};
@@ -318,8 +318,6 @@ Http_server::open_server()
                 std::move(socket),
                 doc_root)}.detach();
         }
-
-        auto th = [this] { this->ioc.run(); };
     }
     catch (const std::exception& e)
     {
@@ -327,13 +325,5 @@ Http_server::open_server()
         return EXIT_FAILURE;
     }
 }
-
-/*
-void
-Http_server::open_server_thread()
-{
-    std::thread th1(&Http_server::open_server, this);
-}
-*/
 
 }
